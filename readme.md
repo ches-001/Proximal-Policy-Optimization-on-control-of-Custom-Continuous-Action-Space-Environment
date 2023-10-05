@@ -70,7 +70,7 @@ Ensure to browse through the code for the full implementation.
 
 ## The Environment
 
-The environment is a single sinusoidal lane with upper and lower boundaries, each point in the siusoidal lane is governed by the equation:
+The environment is a single sinusoidal line with right and left boundaries, forming a sinusoidal lane, each point in the siusoidal lane is governed by the equation:
 
 $y = A \cdot \sin(\omega \cdot x)$
 the left and right lanes are offset by the center lane by 1 and -1 respectively.
