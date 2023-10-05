@@ -39,7 +39,7 @@ Maximising the objective $L\_{\theta}$ is also equivalent to minimising the obje
 
 The first term inside the $min$ is the CPI objective, using this objective alone, the policy model is almost certain to not converge as its current policy would tend to deviate largely from the old policy. To ensure convergence, the PPO paper utilises a clipped surrogate function to the CPI function, governed by an $\epsilon$ hyperparameter. By doing so, the model is certain to converge, while also simultaneously ensuring that the new policy is in close proximity to the old policy, thus the name “Proximal Policy Optimization”.
 
-Having said all that, what exactly is $\pi\_{\theta}(a\_t | s\_t)$? well they do differ depending on whether the action space is discrete or continuous. For a discrete action space, $\pi(a\_t | s\_t)$ refers to the probability density function of a sampled action $a\_t$ in a categorical distribution defined by predicted logits for each corresponding action. 
+Having said all that, what exactly is $\pi\_{\theta}(a\_t | s\_t)$? Well it does differ depending on whether the action space of the environment is discrete or continuous. For a discrete action space, $\pi(a\_t | s\_t)$ refers to the probability density function of a sampled action $a\_t$ in a categorical distribution defined by predicted logits for each corresponding action. 
 
 Mathematically, given the model outputed logits: $(q\_1, q\_2, \ldots q\_n)$ , we can convert them to mutually exclusive probability scores $(p\_1, p\_2, \ldots p\_n)$ via a softmax function like so:
 s
@@ -84,13 +84,13 @@ The goal of the agent is to guide the vehicle to take only the sinusoudal path /
 
 ### Action space
 
-In this environment, the action corresponds to the derivative of the sinusoidal function that models the lane, and is expected to be estimated by the agent at each given state. The action state is multiplied by the common difference of the discrete x-axis values and added to the current state to give an approximate next state like so:
+In this environment, the action corresponds to the derivative of the sinusoidal function that models the lane, it is expected to be estimated by the agent at each given state. The action state is multiplied by the common difference of the discrete x-axis values and added to the current state to give an approximate next state like so:
 
 $s\_{t+1} = [\hat{y}\_{t+1, -1},\hspace{1mm} \hat{y}\_{t+1, 0}, \hspace{1mm} \hat{y}\_{t+1, 1}, \hspace{1mm} x\_{t+1}]$
 
 Where:
 
-$\hat{y}\_{t+1, 0} = \hat{y}\_{t, 0} + (A \cdot \omega \cos(\omega \cdot x) \cdot \Delta{x})$
+$\hat{y}\_{t+1, 0} = \hat{y}\_{t, 0} + a\_t  \cdot \Delta{x})$
 
 $\hat{y}\_{t+1, -1} = \hat{y}\_{t+1, 0} - 1$
 
@@ -100,7 +100,7 @@ And
 
 $x\_{t+1} = x\_t + \Delta{x}$
 
-The action in this case is: 
+The action in this case is $a\_t$, and an ideal value for it would be: 
 $a\_t = A \cdot \omega \cos(\omega \cdot x)$
 
 So therefore:
