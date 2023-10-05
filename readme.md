@@ -4,11 +4,11 @@
 
  PPO happens to be an on-policy technique, as it requires no target network to estimate the optimal policy. PPO is an improved version of the TRPO approach that aims to maximise the objective:
 
-$L_{theta} = \hat{E}_t [\frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)} \cdot \hat{A}_t]$
+$L_{theta} = \hat{E}_t (\frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)} \cdot \hat{A}_t)$
 
 Subject to: 
 
-$\hat{E}_t [KLD(\pi_{\theta old}(a_t | s_t), \hspace{1mm} {\pi_{\theta}(a_t | s_t)})] \leq \delta$  eq(2)
+$\hat{E}_t (KLD(\pi_{\theta old}(a_t | s_t), \hspace{1mm} {\pi_{\theta}(a_t | s_t)})) \leq \delta$  eq(2)
 
 Where: 
 $\hat{E}_t$ corresponds to the expected value, $\pi_{\theta old}(a_t | s_t)$ and $ \pi_{\theta}(a_t | s_t)$ correspond to the old and new policy estimates and $\hat{A}_t$ corresponds to the GAE, expressed as:
