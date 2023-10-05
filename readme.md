@@ -13,7 +13,7 @@ $\hat{E}\_t [KLD(\pi\_{\theta old}(a\_t | s\_t), \hspace{1mm} {\pi\_{\theta}(a\_
 Where: 
 $\hat{E}\_t$ corresponds to the expected value, $\pi\_{\theta old}(a\_t | s\_t)$ and $\pi\_{\theta}(a\_t | s\_t)$ correspond to the old and new policy estimates and $\hat{A}\_t$ corresponds to the GAE, expressed as:
 
-$\hat{A}\_t = \sum\_{i=t}^{T-1} (\gamma \cdot \lambda)^{i-t} \cdot \hat{\delta}\_i$  eq(3)
+$\hat{A}\_t = \sum_{i=t}^{T-1} \hspace{2mm} (\gamma \cdot \lambda)^{i-t} \cdot \hat{\delta}\_i$  eq(3)
 
 $\hat{\delta}\_t = r\_t + \gamma \cdot \pi\_{\theta V}(s\_{t+1}) - \pi\_{\theta V}(s\_t)$  eq(4)
 
