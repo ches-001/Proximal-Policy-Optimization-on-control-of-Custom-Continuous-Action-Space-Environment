@@ -25,7 +25,7 @@ $r_t$ is the reward at time $t$, $\gamma$ is the discount factor, $\hat{\delta}_
 
 
 Let: 
-$r_t(\theta) = \frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)}$  eq(5)
+$L_{theta} = \hat{E}_t [\frac{\pi_{\theta}(a_t | s_t)} {\pi_{\theta old}(a_t | s_t)} \hat{A}_t]$ eq(5)
 
 Then:
 $L_{\theta} = \hat{E}_t [r_t(\theta)  \cdot \hat{A}_t]$  eq(6)
