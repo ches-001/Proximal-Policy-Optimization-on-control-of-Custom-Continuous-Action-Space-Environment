@@ -3,7 +3,8 @@
 ## The Algorithm / Technique:
 
  PPO happens to be an on-policy technique, as it requires no target network to estimate the optimal policy. PPO is an improved version of the TRPO approach that aims to maximise the objective:
-$$L_{theta} = \hat{E}_t [\frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)} \cdot \hat{A}_t]$$ 
+ 
+$L_{theta} = \hat{E}_t \frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)} \cdot \hat{A}_t$ 
 
 eq(1)
 
