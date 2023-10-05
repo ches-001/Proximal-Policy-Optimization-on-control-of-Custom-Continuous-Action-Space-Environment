@@ -11,7 +11,6 @@ Subject to:
 $\hat{E}_t [KLD(\pi_{\theta old}(a_t | s_t), \hspace{1mm} {\pi_{\theta}(a_t | s_t)})] \leq \delta$  eq(2)
 
 Where: 
-
 $\hat{E}_t$ corresponds to the expected value, $\pi_{\theta old}(a_t | s_t)$ and $ \pi_{\theta}(a_t | s_t)$ correspond to the old and new policy estimates and $\hat{A}_t$ corresponds to the GAE, expressed as:
 
 $\hat{A}_t = \sum_{i=t}^{T-1} (\gamma \cdot \lambda)^{i-t} \cdot \hat{\delta}_i$  eq(3)
@@ -82,6 +81,7 @@ the left and right lanes are offset by the center lane by 1 and -1 respectively.
 | Observation Space| Box(-3,3, (4,), float32)    |
 
 The goal of the agent is to guide the vehicle to take only the sinusoudal path / lane.
+
 ### Action space
 
 In this environment, the action corresponds to the derivative of the sinusoidal function that models the lane, and is expected to be estimated by the agent at each given state. The action state is multiplied by the common difference of the discrete x-axis values and added to the current state to give an approximate next state like so:
