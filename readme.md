@@ -4,33 +4,36 @@
 
  PPO happens to be an on-policy technique, as it requires no target network to estimate the optimal policy. PPO is an improved version of the TRPO approach that aims to maximise the objective:
 
-$L_{theta} = \hat{E}_t [\frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)} \cdot \hat{A}_t]$	---------------------------------------------- eq(1)
+$L_{theta} = \hat{E}_t [\frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)} \cdot \hat{A}_t]$	 eq(1)
 
-Subject to: $\hat{E}_t [KLD(\pi_{\theta old}(a_t | s_t), \hspace{1mm} {\pi_{\theta}(a_t | s_t)})] \leq \delta$ ------------------- eq(2)
+Subject to: 
+
+$\hat{E}_t [KLD(\pi_{\theta old}(a_t | s_t), \hspace{1mm} {\pi_{\theta}(a_t | s_t)})] \leq \delta$  eq(2)
 
 Where: 
+
 $\hat{E}_t$ corresponds to the expected value, $\pi_{\theta old}(a_t | s_t)$ and $ \pi_{\theta}(a_t | s_t)$ correspond to the old and new policy estimates and $\hat{A}_t$ corresponds to the GAE, expressed as:
 
-$\hat{A}_t = \sum_{i=t}^{T-1} (\gamma \cdot \lambda)^{i-t} \cdot \hat{\delta}_i$ ------------------------------------------------ eq(3)
+$\hat{A}_t = \sum_{i=t}^{T-1} (\gamma \cdot \lambda)^{i-t} \cdot \hat{\delta}_i$  eq(3)
 
-$\hat{\delta}_t = r_t + \gamma \cdot \pi_{\theta V}(s_{t+1}) - \pi_{\theta V}(s_t)$ -------------------------------------- eq(4)
+$\hat{\delta}_t = r_t + \gamma \cdot \pi_{\theta V}(s_{t+1}) - \pi_{\theta V}(s_t)$  eq(4)
 
 Where: 
 $r_t$ is the reward at time $t$, $\gamma$ is the discount factor, $\hat{\delta}_t$ is the discounted return at time $t$, $\lambda$ is the decay factor for prior returns to the return at time $t$ and $\pi_{\theta V}$ is the value model responsible for estimating the value return of a state at any given state in time.
 
 
 Let: 
-$r_t(\theta) = \frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)}$ ------------------------------------------------------ eq(5)
+$r_t(\theta) = \frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)}$  eq(5)
 
 Then:
-$L_{\theta} = \hat{E}_t [r_t(\theta)  \cdot \hat{A}_t]$ ------------------------------------------------- eq(6)
+$L_{\theta} = \hat{E}_t [r_t(\theta)  \cdot \hat{A}_t]$  eq(6)
 
 
 It can be observed that eq(1) is a constrained optimization problem as it is subject to a constraint which is eq(2). Constrained Optimization problems are not particularly as easy to solve as unconstrained ones, typically they would require a conjugate gradient which at times can be more computationally expensive to compute and propagate. For this reason the PPO is a more preferred reinforcement learning approach.
 
 In PPO, we aim to maximise the objective:
 
-$L_{\theta} = \hat{E}_t [min(r_t(\theta) \cdot \hat{A}_t , \hspace{1mm} clip(r_t(\theta), \hspace{1mm}1-\epsilon, \hspace{1mm} 1+\epsilon) \cdot \hat{A}_t )]$ ------------ eq(7)
+$L_{\theta} = \hat{E}_t [min(r_t(\theta) \cdot \hat{A}_t , \hspace{1mm} clip(r_t(\theta), \hspace{1mm}1-\epsilon, \hspace{1mm} 1+\epsilon) \cdot \hat{A}_t )]$  eq(7)
 
 Note:
 Maximising the objective $L_{\theta}$ is also equivalent to minimising the objective $-L_{\theta}$
