@@ -134,6 +134,6 @@ $\hat{y}\_{t, 0}$ is the center rear wheel y-axis position estimated by the usin
 
 ### Truncate and Terminate
 
-Environment terminates if the end of the environment is reached of the agent exceeds the observation space bounds.
+Environment terminates if the end of the environment is reached (the vehicle crosses the green line), or if the agent exceeds the observation space bounds.
 
 The environment truncates if the number of steps in the episode exceed 150
