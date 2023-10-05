@@ -131,9 +131,18 @@ $r\_t = 1 - |\hat{y}\_{t, 0} - y\_{t}|$
 Where:
 $\hat{y}\_{t, 0}$ is the center rear wheel y-axis position estimated by the using policy action at time $t$ and $y\_t$ is the actual point in the y-axis is it ought to follow at time $t$ 
 
+Cutoff Reward is 135 for this environment.
+
 
 ### Truncate and Terminate
 
 Environment terminates if the end of the environment is reached (the vehicle crosses the green line), or if the agent exceeds the observation space bounds.
 
 The environment truncates if the number of steps in the episode exceed 150
+
+
+### Example Demo of Trained Agent on Environment
+
+https://github.com/ches-001/Proximal-Policy-Optimization-on-control-of-Custom-Continuous-Action-Space-Environment/assets/70514310/be39669e-7b9c-4d43-ba5b-b3d94c85b042
+
+
