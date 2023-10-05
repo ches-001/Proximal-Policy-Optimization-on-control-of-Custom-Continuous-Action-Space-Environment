@@ -3,12 +3,12 @@
 ## The Algorithm / Technique:
 
  PPO happens to be an on-policy technique, as it requires no target network to estimate the optimal policy. PPO is an improved version of the TRPO approach that aims to maximise the objective:
- 
-$L_{theta} = \hat{E}_t [\frac{\pi_{\theta}(a_t | s_t)} {\pi_{\theta old}(a_t | s_t)} \hat{A}_t]$ 
+$$L_{theta} = \hat{E}_t [\frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)} \cdot \hat{A}_t]$$ 
 
 eq(1)
 
 Subject to: 
+
 $\hat{E}_t [KLD(\pi_{\theta old}(a_t | s_t), \hspace{1mm} {\pi_{\theta}(a_t | s_t)})] \leq \delta$  
 
 eq(2)
@@ -25,7 +25,7 @@ $r_t$ is the reward at time $t$, $\gamma$ is the discount factor, $\hat{\delta}_
 
 
 Let: 
-$L_{theta} = \hat{E}_t [\frac{\pi_{\theta}(a_t | s_t)} {\pi_{\theta old}(a_t | s_t)} \hat{A}_t]$ eq(5)
+$r_t(\theta) = \frac{\pi_{\theta}(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)}$  eq(5)
 
 Then:
 $L_{\theta} = \hat{E}_t [r_t(\theta)  \cdot \hat{A}_t]$  eq(6)
