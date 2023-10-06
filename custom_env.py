@@ -27,6 +27,7 @@ class SinusoidLaneEnv(gym.Env):
         self.terminate = False
         self.truncate = False
         self.state = np.array([-1, 0, 1, self.__x[self.__counter]], dtype=np.float32)
+        self.setpoint = np.array([-1, 0, 1, self.__x[self.__counter]], dtype=np.float32)
         
     def _make_lane(self) -> Tuple[np.ndarray, np.ndarray]:
         x = np.linspace(self.__lb, self.__ub, self.__n)
@@ -37,17 +38,28 @@ class SinusoidLaneEnv(gym.Env):
         if isinstance(action, float):
             action = np.array([action])
 
+        # compute new state from agent action
         pos = self.state[1] + (action[0] * self.__dx)
-        # pos = (
-        #     self.state[1] + 
-        #     (self.__amplitude * self.__omega * np.cos(self.__omega * self.state[3]) * self.__dx)
-        # )
         self.state = np.array([
             pos - self.__lane_pad,
             pos,
             pos + self.__lane_pad,
             self.state[3] + self.__dx,
-        ], dtype=np.float32)
+        ], 
+        dtype=np.float32)
+
+        # compute setpoint (target state) from ideal action
+        target_pos = (
+            self.setpoint[1] + 
+            (self.__amplitude * self.__omega * np.cos(self.__omega * self.setpoint[3]) * self.__dx)
+        )
+        self.setpoint = np.array([
+            target_pos - self.__lane_pad,
+            target_pos,
+            target_pos + self.__lane_pad,
+            self.setpoint[3] + self.__dx,
+        ], 
+        dtype=np.float32)
 
         self.__counter += 1
         reward = 1 - np.abs(self.state[1] - self.__lane[self.__counter])
@@ -66,11 +78,13 @@ class SinusoidLaneEnv(gym.Env):
             "center_pos": self.state[1],
             "right_pos": self.state[2],
             "x_pos": self.state[3],
+            "setpoint": self.setpoint,
         }
         return self.state, reward, self.truncate, self.terminate, info
 
     def reset(self) -> Tuple[np.ndarray, Dict[str, float]]:
         self.__counter = 0
+        self.setpoint =  np.array([-1, 0, 1, self.__x[self.__counter]], dtype=np.float32)
         self.state = np.array([-1, 0, 1, self.__x[self.__counter]], dtype=np.float32)
         self.truncate = False 
         self.terminate =  False
@@ -78,6 +92,7 @@ class SinusoidLaneEnv(gym.Env):
             "left_pos": self.state[0],
             "center_pos": self.state[1],
             "right_pos": self.state[2],
+            "setpoint": self.setpoint,
         }
         return self.state, info
 
@@ -94,7 +109,7 @@ class SinusoidLaneEnv(gym.Env):
         plt.ylim(-3.5, 3.5)
         plt.autoscale(False)
         plt.xticks(visible=False)
-        #plt.yticks(visible=False)
+        plt.yticks(visible=False)
         plt.plot(self.__x, self.__left_bound, c="orange", linewidth=3)
         plt.plot(self.__x, self.__right_bound, c="orange", linewidth=3)
         plt.plot(
