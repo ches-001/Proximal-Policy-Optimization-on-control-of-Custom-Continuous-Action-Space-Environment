@@ -49,7 +49,7 @@ The mutually exclusive probability scores are then used to generate a categorica
 
 $a\_t \sim Cat(p\_1, p\_2, \ldots, p)$
 
-We then compute the log probability density of $a\_t$ given the distribution $Cat(p\_1, p\_2, \ldots, p)$ which we use as $\pi\_{\theta}(s\_t | a\_t)$. Since is in log probability form, the policy ratio $r(\theta)\_t$ is given as:
+We compute the log probability density of $a\_t$ given the distribution $Cat(p\_1, p\_2, \ldots, p)$ which we use as $\pi\_{\theta}(s\_t | a\_t)$. Since it is in log probability form, the policy ratio $r(\theta)\_t$ is given as:
 
 $r\_t{\theta} = \exp(\pi\_{\theta}(s\_t | a\_t) - \pi\_{{\theta} old}(s\_t | a\_t)) $ 
 
