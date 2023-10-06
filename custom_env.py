@@ -17,8 +17,8 @@ class SinusoidLaneEnv(gym.Env):
         self.__lane_pad = 1
         self.__counter = 0
         self.__end_idx = -5
-        self.__dx = (self.__ub - self.__lb)/(self.__n - 1)
-        
+
+        self.dx = (self.__ub - self.__lb)/(self.__n - 1)
         self.action_space = gym.spaces.Box(low=-0.5, high=0.5, shape=(1,), dtype=np.float32)
         self.observation_space = gym.spaces.Box(
             low=-(self.__amplitude+1), high=self.__amplitude+1,shape=(4,), dtype=np.float32
@@ -39,25 +39,25 @@ class SinusoidLaneEnv(gym.Env):
             action = np.array([action])
 
         # compute new state from agent action
-        pos = self.state[1] + (action[0] * self.__dx)
+        pos = self.state[1] + (action[0] * self.dx)
         self.state = np.array([
             pos - self.__lane_pad,
             pos,
             pos + self.__lane_pad,
-            self.state[3] + self.__dx,
+            self.state[3] + self.dx,
         ], 
         dtype=np.float32)
 
         # compute setpoint (target state) from ideal action
         target_pos = (
             self.setpoint[1] + 
-            (self.__amplitude * self.__omega * np.cos(self.__omega * self.setpoint[3]) * self.__dx)
+            (self.__amplitude * self.__omega * np.cos(self.__omega * self.setpoint[3]) * self.dx)
         )
         self.setpoint = np.array([
             target_pos - self.__lane_pad,
             target_pos,
             target_pos + self.__lane_pad,
-            self.setpoint[3] + self.__dx,
+            self.setpoint[3] + self.dx,
         ], 
         dtype=np.float32)
 
@@ -113,12 +113,12 @@ class SinusoidLaneEnv(gym.Env):
         plt.plot(self.__x, self.__left_bound, c="orange", linewidth=3)
         plt.plot(self.__x, self.__right_bound, c="orange", linewidth=3)
         plt.plot(
-            [self.state[3], self.state[3], self.state[3], self.state[3] + (7 * self.__dx), self.state[3]],
+            [self.state[3], self.state[3], self.state[3], self.state[3] + (7 * self.dx), self.state[3]],
             [self.state[0], self.state[1], self.state[2], self.state[1], self.state[0]],
             c="black"
         )
         plt.scatter(
-            [self.state[3], self.state[3], self.state[3], self.state[3] + (7 * self.__dx), self.state[3]],
+            [self.state[3], self.state[3], self.state[3], self.state[3] + (7 * self.dx), self.state[3]],
             [self.state[0], self.state[1], self.state[2], self.state[1], self.state[0]], 
             c="orange"
         )
