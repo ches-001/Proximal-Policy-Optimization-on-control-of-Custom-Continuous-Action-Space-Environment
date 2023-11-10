@@ -142,7 +142,7 @@ def rollout(
         policy_agent: Any,
         value_agent: Any,
         max_rollout_steps: Optional[int]=None, 
-    ) -> Dict[str, np.ndarray]:
+    ) -> Tuple[Dict[str, np.ndarray], float]:
 
     experience = {
         "observations": [],
