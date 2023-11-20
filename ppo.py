@@ -126,7 +126,7 @@ def compute_gaes(
         lambda_: float=0.97) -> np.ndarray:
     
     next_values = np.concatenate((values[1:], np.zeros(1)))
-    deltas = rewards + (gamma * (next_values - values))
+    deltas = rewards + (gamma * next_values) - values
     gaes = []
     gae_t = 0
     # Start from the last reward and work backward
